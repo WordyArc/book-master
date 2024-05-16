@@ -3,6 +3,7 @@ package com.wordyarc.bookmaster.controller;
 import java.util.*;
 
 import com.wordyarc.bookmaster.dto.*;
+import com.wordyarc.bookmaster.dto.book.*;
 import com.wordyarc.bookmaster.dto.exception.*;
 import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.media.*;

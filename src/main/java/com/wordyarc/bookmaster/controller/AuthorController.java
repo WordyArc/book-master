@@ -3,6 +3,7 @@ package com.wordyarc.bookmaster.controller;
 import java.util.*;
 
 import com.wordyarc.bookmaster.dto.*;
+import com.wordyarc.bookmaster.dto.author.*;
 import com.wordyarc.bookmaster.dto.exception.*;
 import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.media.*;
@@ -27,7 +28,7 @@ public interface AuthorController {
             content = @Content(schema = @Schema(implementation = InvalidFieldsDto.class))
         )
     })
-    ResponseEntity<CreatedDto> addAuthor(@RequestBody AuthorDto authorDto);
+    ResponseEntity<CreatedDto> addAuthor(@RequestBody CreateAuthorDto createAuthorDto);
 
     @Operation(summary = "Изменение информации об авторе")
     @ApiResponses(value = {

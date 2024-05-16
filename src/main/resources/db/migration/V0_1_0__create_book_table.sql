@@ -1,6 +1,6 @@
 CREATE TABLE book
 (
-    id               SERIAL             NOT NULL,
+    id               SERIAL8             NOT NULL,
     title            VARCHAR(255)       NOT NULL,
     isbn             VARCHAR(13) UNIQUE NOT NULL,
     publication_date Date,

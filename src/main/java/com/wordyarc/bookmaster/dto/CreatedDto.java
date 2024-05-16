@@ -13,6 +13,6 @@ public class CreatedDto {
         description = "ID Сущности",
         example = "4"
     )
-    private final String id;
+    private final Long id;
 
 }

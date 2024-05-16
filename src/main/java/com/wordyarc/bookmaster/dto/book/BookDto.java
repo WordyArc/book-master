@@ -1,7 +1,8 @@
-package com.wordyarc.bookmaster.dto;
+package com.wordyarc.bookmaster.dto.book;
 
 import java.util.*;
 
+import com.wordyarc.bookmaster.dto.author.*;
 import io.swagger.v3.oas.annotations.media.*;
 import lombok.*;
 

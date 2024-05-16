@@ -1,6 +1,6 @@
 CREATE TABLE author
 (
-    id         SERIAL       NOT NULL,
+    id         SERIAL8       NOT NULL,
     first_name VARCHAR(255) NOT NULL,
     last_name  VARCHAR(255) NOT NULL,
 
