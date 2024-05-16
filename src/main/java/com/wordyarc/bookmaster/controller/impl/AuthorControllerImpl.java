@@ -29,9 +29,11 @@ public class AuthorControllerImpl implements AuthorController {
     @PutMapping("/{id}")
     public ResponseEntity<AuthorDto> updateAuthor(
         @PathVariable Long id,
-        @RequestBody AuthorDto authorDto
+        @RequestBody CreateAuthorDto createAuthorDto
     ) {
-        return null;
+        var updatedAuthorDTO = authorService.updateAuthor(id, createAuthorDto);
+
+        return ResponseEntity.ok(updatedAuthorDTO);
     }
 
     @Override

@@ -44,7 +44,7 @@ public interface AuthorController {
     })
     ResponseEntity<AuthorDto> updateAuthor(
         @Parameter(description = "Идентификатор автора", required = true)  Long id,
-        @RequestBody AuthorDto authorDto
+        @RequestBody CreateAuthorDto createAuthorDto
     );
 
     @Operation(summary = "Удаление автора")
