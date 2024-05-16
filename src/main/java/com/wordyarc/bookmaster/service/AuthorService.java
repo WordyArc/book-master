@@ -25,11 +25,20 @@ public class AuthorService {
     }
 
     public AuthorDto updateAuthor(Long id, CreateAuthorDto dto) {
-        var author = authorRepository.findById(id).orElseThrow(AuthorService::getAuthorNotFoundException);
+        var author = authorRepository.findById(id)
+            .orElseThrow(AuthorService::getAuthorNotFoundException);
         mapper.map(dto, author);
         var updatedAuthor = authorRepository.save(author);
 
         return mapper.map(updatedAuthor, AuthorDto.class);
+    }
+
+    public void deleteAuthorById(Long id) {
+        if (!authorRepository.existsById(id)) {
+            throw getAuthorNotFoundException();
+        }
+
+        authorRepository.deleteById(id);
     }
 
     private static NotFoundException getAuthorNotFoundException() {

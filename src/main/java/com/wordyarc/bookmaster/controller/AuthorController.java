@@ -5,13 +5,13 @@ import java.util.*;
 import com.wordyarc.bookmaster.dto.*;
 import com.wordyarc.bookmaster.dto.author.*;
 import com.wordyarc.bookmaster.dto.exception.*;
+import com.wordyarc.bookmaster.exception.*;
 import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.media.*;
 import io.swagger.v3.oas.annotations.parameters.*;
 import io.swagger.v3.oas.annotations.responses.*;
 import io.swagger.v3.oas.annotations.tags.*;
 import org.springframework.http.*;
-import org.springframework.web.*;
 
 @Tag(name = "Авторы", description = "Добавление, получение, обновление и удаление авторов")
 public interface AuthorController {
@@ -38,8 +38,8 @@ public interface AuthorController {
         ),
         @ApiResponse(
             responseCode = "404",
-            description = "Автор не найден",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+            description = "Автор с таким id не найден",
+            content = @Content(schema = @Schema(implementation = ApiException.class))
         )
     })
     ResponseEntity<AuthorDto> updateAuthor(
@@ -55,8 +55,8 @@ public interface AuthorController {
         ),
         @ApiResponse(
             responseCode = "404",
-            description = "Автор не найден",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+            description = "Автор с таким id не найден",
+            content = @Content(schema = @Schema(implementation = ApiException.class))
         )
     })
     ResponseEntity<Void> deleteAuthor(@Parameter(description = "Идентификатор автора", required = true) Long id);

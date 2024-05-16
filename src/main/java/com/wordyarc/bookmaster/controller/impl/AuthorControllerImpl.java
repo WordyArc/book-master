@@ -41,7 +41,9 @@ public class AuthorControllerImpl implements AuthorController {
     public ResponseEntity<Void> deleteAuthor(
         @PathVariable Long id
     ) {
-        return null;
+        authorService.deleteAuthorById(id);
+
+        return ResponseEntity.noContent().build();
     }
 
     @Override
