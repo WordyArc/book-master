@@ -38,6 +38,6 @@ public class Book {
         inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     @JsonManagedReference
-    Set<Author> authors = new HashSet<>();
+    private Set<Author> authors = new HashSet<>();
 
 }
