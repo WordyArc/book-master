@@ -44,7 +44,10 @@ public interface BookController {
             content = @Content(schema = @Schema(implementation = ErrorResponse.class))
         )
     })
-    ResponseEntity<BookDto> updateBook(Long id, @RequestBody BookDto bookDTO);
+    ResponseEntity<BookDto> updateBook(
+        @Parameter(description = "Идентификатор книги", required = true)  Long id,
+        @RequestBody BookDto bookDTO
+    );
 
     @Operation(summary = "Удаление книги")
     @ApiResponses(value = {
@@ -58,7 +61,7 @@ public interface BookController {
             content = @Content(schema = @Schema(implementation = ErrorResponse.class))
         )
     })
-    ResponseEntity<Void> deleteBook(Long id);
+    ResponseEntity<Void> deleteBook(@Parameter(description = "Идентификатор книги", required = true)  Long id);
 
     @Operation(summary = "Получение списка книг с фильтрацией по наименованию, ISBN, автору")
     @ApiResponses(value = {
@@ -68,9 +71,9 @@ public interface BookController {
         )
     })
     ResponseEntity<List<BookDto>> getBooks(
-        String title,
-        String isbn,
-        String author
+        @Parameter(description = "Название книги") String title,
+        @Parameter(description = "ISBN книги") String isbn,
+        @Parameter(description = "Имя автора книги") String author
     );
 
 }
