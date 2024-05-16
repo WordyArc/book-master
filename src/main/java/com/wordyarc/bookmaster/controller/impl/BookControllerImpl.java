@@ -39,7 +39,9 @@ public class BookControllerImpl implements BookController {
     @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        return null;
+        bookService.deleteBookById(id);
+
+        return ResponseEntity.noContent().build();
     }
 
     @Override

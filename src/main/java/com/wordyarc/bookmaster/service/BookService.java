@@ -49,6 +49,14 @@ public class BookService {
         return convertToDto(updatedBook);
     }
 
+    public void deleteBookById(Long id) {
+        if (!bookRepository.existsById(id)) {
+            throw getBookNotFoundException();
+        }
+
+        bookRepository.deleteById(id);
+    }
+
     private BookDto convertToDto(Book book) {
         BookDto bookDto = mapper.map(book, BookDto.class);
         bookDto.setAuthorIds(book.getAuthors().stream().map(Author::getId).collect(Collectors.toSet()));
