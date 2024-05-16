@@ -2,6 +2,7 @@ package com.wordyarc.bookmaster.handler;
 
 import com.wordyarc.bookmaster.dto.exception.*;
 import com.wordyarc.bookmaster.exception.*;
+import jakarta.validation.*;
 import lombok.extern.slf4j.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.*;
@@ -37,4 +38,17 @@ public class GlobalApiExceptionHandler {
         return ResponseEntity.badRequest().body(new InvalidFieldsDto(INVALID_FIELDS, errors));
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException exception) {
+        var errors = exception.getConstraintViolations().stream()
+            .map(cv -> {
+                var fileName = cv.getPropertyPath().toString();
+                for (var propertyPath : cv.getPropertyPath()) {
+                    fileName = propertyPath.getName();
+                }
+                return new InvalidFieldDto(fileName, cv.getMessage());
+            }).toList();
+
+        return ResponseEntity.badRequest().body(new InvalidFieldsDto(INVALID_FIELDS, errors));
+    }
 }
