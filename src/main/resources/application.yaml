@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: book-master
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/postgres}
+  jpa:
+    show-sql: ${SPRING_JPA_SHOW_SQL:true}
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    root: INFO
+    com:
+      wordyarc:
+        bookmaster: INFO
