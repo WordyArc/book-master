@@ -31,7 +31,9 @@ public class BookControllerImpl implements BookController {
         @PathVariable Long id,
         @RequestBody CreateBookDto createBookDto
     ) {
-        return null;
+        var updatedBookDto = bookService.updateBook(id, createBookDto);
+
+        return ResponseEntity.ok(updatedBookDto);
     }
 
     @Override

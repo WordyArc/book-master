@@ -1,6 +1,7 @@
 package com.wordyarc.bookmaster.service;
 
 import java.util.*;
+import java.util.stream.*;
 
 import com.wordyarc.bookmaster.dto.*;
 import com.wordyarc.bookmaster.dto.book.*;
@@ -35,6 +36,26 @@ public class BookService {
         return new CreatedDto(createdBook.getId());
     }
 
+    public BookDto updateBook(Long id, CreateBookDto createBookDto) {
+        var book = bookRepository.findById(id)
+            .orElseThrow(BookService::getBookNotFoundException);
+        if (!book.getIsbn().equals(createBookDto.getIsbn()) && bookRepository.existsByIsbn(createBookDto.getIsbn())) {
+            throw new BadRequestException("ISBN должен быть уникален");
+        }
+        mapper.map(createBookDto, book);
+        book.setAuthors(findAuthorsByIds(createBookDto.getAuthorIds()));
+        var updatedBook = bookRepository.save(book);
+
+        return convertToDto(updatedBook);
+    }
+
+    private BookDto convertToDto(Book book) {
+        BookDto bookDto = mapper.map(book, BookDto.class);
+        bookDto.setAuthorIds(book.getAuthors().stream().map(Author::getId).collect(Collectors.toSet()));
+
+        return bookDto;
+    }
+
     private Set<Author> findAuthorsByIds(Set<Long> authorIds) {
         List<Author> authors = authorRepository.findByIdIn(authorIds);
         if (authors.size() != authorIds.size()) {
@@ -44,4 +65,7 @@ public class BookService {
         return new HashSet<>(authors);
     }
 
+    public static NotFoundException getBookNotFoundException() {
+        return new NotFoundException("Книга не найдена");
+    }
 }
