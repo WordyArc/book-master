@@ -47,8 +47,14 @@ public class BookControllerImpl implements BookController {
 
     @Override
     @GetMapping
-    public ResponseEntity<List<BookDto>> getBooks(String title, String isbn, String author) {
-        return null;
+    public ResponseEntity<List<BookDto>> getBooks(
+        @RequestParam(required = false) String title,
+        @RequestParam(required = false) String isbn,
+        @RequestParam(required = false) String author
+    ) {
+        List<BookDto> bookDTOs = bookService.getBooks(title, isbn, author);
+
+        return ResponseEntity.ok(bookDTOs);
     }
 
 }

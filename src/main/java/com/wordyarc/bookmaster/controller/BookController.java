@@ -72,9 +72,9 @@ public interface BookController {
         )
     })
     ResponseEntity<List<BookDto>> getBooks(
-        @Parameter(description = "Название книги") String title,
-        @Parameter(description = "ISBN книги") String isbn,
-        @Parameter(description = "Имя автора книги") String author
+        @Parameter(description = "Название книги", required = false) String title,
+        @Parameter(description = "ISBN книги", required = false) String isbn,
+        @Parameter(description = "Имя автора книги", required = false) String author
     );
 
 }

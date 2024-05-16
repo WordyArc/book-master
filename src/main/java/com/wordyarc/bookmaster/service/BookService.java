@@ -21,6 +21,8 @@ public class BookService {
 
     private final AuthorRepository authorRepository;
 
+    private final CustomBookRepository customBookRepository;
+
     private final ModelMapper mapper;
 
     @Transactional
@@ -55,6 +57,14 @@ public class BookService {
         }
 
         bookRepository.deleteById(id);
+    }
+
+    public List<BookDto> getBooks(String title, String isbn, String author) {
+        List<Book> books = customBookRepository.findBooksByFilters(title, isbn, author);
+
+        return books.stream()
+            .map(this::convertToDto)
+            .toList();
     }
 
     private BookDto convertToDto(Book book) {
