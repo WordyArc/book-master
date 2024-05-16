@@ -1,0 +1,9 @@
+CREATE TABLE book
+(
+    id               SERIAL             NOT NULL,
+    title            VARCHAR(255)       NOT NULL,
+    isbn             VARCHAR(13) UNIQUE NOT NULL,
+    publication_date Date,
+
+    CONSTRAINT pk_book PRIMARY KEY (id)
+)
