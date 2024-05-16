@@ -1,6 +1,5 @@
 package com.wordyarc.bookmaster.model;
 
-import java.time.*;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.*;
@@ -29,7 +28,8 @@ public class Book {
     private String isbn;
 
     @Column(name = "publication_date")
-    private LocalDate publicationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date publicationDate;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

@@ -5,13 +5,13 @@ import java.util.*;
 import com.wordyarc.bookmaster.dto.*;
 import com.wordyarc.bookmaster.dto.book.*;
 import com.wordyarc.bookmaster.dto.exception.*;
+import com.wordyarc.bookmaster.exception.*;
 import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.media.*;
 import io.swagger.v3.oas.annotations.parameters.*;
 import io.swagger.v3.oas.annotations.responses.*;
 import io.swagger.v3.oas.annotations.tags.*;
 import org.springframework.http.*;
-import org.springframework.web.*;
 
 @Tag(
     name = "Книги",
@@ -31,7 +31,7 @@ public interface BookController {
             content = @Content(schema = @Schema(implementation = InvalidFieldsDto.class))
         )
     })
-    ResponseEntity<CreatedDto> addBook(@RequestBody BookDto bookDto);
+    ResponseEntity<CreatedDto> addBook(@RequestBody CreateBookDto createBookDto);
 
     @Operation(summary = "Изменение информации о книге включая авторов")
     @ApiResponses(value = {
@@ -42,12 +42,12 @@ public interface BookController {
         @ApiResponse(
             responseCode = "404",
             description = "Книга не найдена",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+            content = @Content(schema = @Schema(implementation = ApiException.class))
         )
     })
     ResponseEntity<BookDto> updateBook(
         @Parameter(description = "Идентификатор книги", required = true)  Long id,
-        @RequestBody BookDto bookDTO
+        @RequestBody CreateBookDto createBookDto
     );
 
     @Operation(summary = "Удаление книги")
@@ -59,7 +59,7 @@ public interface BookController {
         @ApiResponse(
             responseCode = "404",
             description = "Книга не найдена",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+            content = @Content(schema = @Schema(implementation = ApiException.class))
         )
     })
     ResponseEntity<Void> deleteBook(@Parameter(description = "Идентификатор книги", required = true)  Long id);
