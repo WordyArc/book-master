@@ -49,7 +49,9 @@ public class AuthorControllerImpl implements AuthorController {
     @Override
     @GetMapping
     public ResponseEntity<List<AuthorDto>> getAuthors() {
-        return null;
+        var authorDtos = authorService.getAuthors();
+
+        return ResponseEntity.ok().body(authorDtos);
     }
 
 }

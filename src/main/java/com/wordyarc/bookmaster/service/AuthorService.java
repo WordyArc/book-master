@@ -1,5 +1,7 @@
 package com.wordyarc.bookmaster.service;
 
+import java.util.*;
+
 import com.wordyarc.bookmaster.dto.*;
 import com.wordyarc.bookmaster.dto.author.*;
 import com.wordyarc.bookmaster.exception.*;
@@ -39,6 +41,14 @@ public class AuthorService {
         }
 
         authorRepository.deleteById(id);
+    }
+
+    public List<AuthorDto> getAuthors() {
+        List<Author> authors = authorRepository.findAll();
+
+        return authors.stream()
+            .map(author -> mapper.map(author, AuthorDto.class))
+            .toList();
     }
 
     private static NotFoundException getAuthorNotFoundException() {
