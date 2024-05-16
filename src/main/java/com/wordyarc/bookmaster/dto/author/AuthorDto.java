@@ -2,7 +2,6 @@ package com.wordyarc.bookmaster.dto.author;
 
 import java.util.*;
 
-import com.wordyarc.bookmaster.dto.book.*;
 import io.swagger.v3.oas.annotations.media.*;
 import lombok.*;
 
@@ -23,6 +22,6 @@ public class AuthorDto {
     private String lastName;
 
     @Schema(description = "Список книг автора", example = "")
-    private Set<BookDto> books;
+    private Set<Long> bookIds;
 
 }

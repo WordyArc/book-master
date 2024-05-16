@@ -1,6 +1,7 @@
 package com.wordyarc.bookmaster.service;
 
 import java.util.*;
+import java.util.stream.*;
 
 import com.wordyarc.bookmaster.dto.*;
 import com.wordyarc.bookmaster.dto.author.*;
@@ -32,7 +33,7 @@ public class AuthorService {
         mapper.map(dto, author);
         var updatedAuthor = authorRepository.save(author);
 
-        return mapper.map(updatedAuthor, AuthorDto.class);
+        return convertToDto(updatedAuthor);
     }
 
     public void deleteAuthorById(Long id) {
@@ -47,12 +48,18 @@ public class AuthorService {
         List<Author> authors = authorRepository.findAll();
 
         return authors.stream()
-            .map(author -> mapper.map(author, AuthorDto.class))
+            .map(this::convertToDto)
             .toList();
+    }
+
+    private AuthorDto convertToDto(Author author) {
+        var authorDto = mapper.map(author, AuthorDto.class);
+        authorDto.setBookIds(author.getBooks().stream().map(Book::getId).collect(Collectors.toSet()));
+
+        return authorDto;
     }
 
     private static NotFoundException getAuthorNotFoundException() {
         return new NotFoundException("Автор не найден");
     }
-
 }
