@@ -6,6 +6,7 @@ import com.wordyarc.bookmaster.controller.*;
 import com.wordyarc.bookmaster.dto.*;
 import com.wordyarc.bookmaster.dto.author.*;
 import com.wordyarc.bookmaster.service.*;
+import jakarta.validation.*;
 import lombok.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class AuthorControllerImpl implements AuthorController {
 
     @Override
     @PostMapping
-    public ResponseEntity<CreatedDto> addAuthor(@RequestBody CreateAuthorDto createAuthorDto) {
+    public ResponseEntity<CreatedDto> addAuthor(@Valid @RequestBody CreateAuthorDto createAuthorDto) {
         var createdDto = authorService.addAuthor(createAuthorDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdDto);
@@ -28,8 +29,8 @@ public class AuthorControllerImpl implements AuthorController {
     @Override
     @PutMapping("/{id}")
     public ResponseEntity<AuthorDto> updateAuthor(
-        @PathVariable Long id,
-        @RequestBody CreateAuthorDto createAuthorDto
+        @Valid @PathVariable Long id,
+        @Valid @RequestBody CreateAuthorDto createAuthorDto
     ) {
         var updatedAuthorDTO = authorService.updateAuthor(id, createAuthorDto);
 
@@ -39,7 +40,7 @@ public class AuthorControllerImpl implements AuthorController {
     @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAuthor(
-        @PathVariable Long id
+        @Valid @PathVariable Long id
     ) {
         authorService.deleteAuthorById(id);
 

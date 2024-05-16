@@ -6,6 +6,7 @@ import com.wordyarc.bookmaster.controller.*;
 import com.wordyarc.bookmaster.dto.*;
 import com.wordyarc.bookmaster.dto.book.*;
 import com.wordyarc.bookmaster.service.*;
+import jakarta.validation.*;
 import lombok.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class BookControllerImpl implements BookController {
 
     @Override
     @PostMapping
-    public ResponseEntity<CreatedDto> addBook(@RequestBody CreateBookDto createBookDto) {
+    public ResponseEntity<CreatedDto> addBook(@Valid @RequestBody CreateBookDto createBookDto) {
         var createdDto = bookService.addBook(createBookDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdDto);
@@ -28,8 +29,8 @@ public class BookControllerImpl implements BookController {
     @Override
     @PutMapping("/{id}")
     public ResponseEntity<BookDto> updateBook(
-        @PathVariable Long id,
-        @RequestBody CreateBookDto createBookDto
+        @Valid @PathVariable Long id,
+        @Valid @RequestBody CreateBookDto createBookDto
     ) {
         var updatedBookDto = bookService.updateBook(id, createBookDto);
 
@@ -38,7 +39,7 @@ public class BookControllerImpl implements BookController {
 
     @Override
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteBook(@Valid @PathVariable Long id) {
         bookService.deleteBookById(id);
 
         return ResponseEntity.noContent().build();
