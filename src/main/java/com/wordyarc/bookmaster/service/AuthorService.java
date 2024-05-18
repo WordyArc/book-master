@@ -54,7 +54,11 @@ public class AuthorService {
 
     private AuthorDto convertToDto(Author author) {
         var authorDto = mapper.map(author, AuthorDto.class);
-        authorDto.setBookIds(author.getBooks().stream().map(Book::getId).collect(Collectors.toSet()));
+        Set<Long> booksIds = author.getBooks()
+            .stream()
+            .map(Book::getId)
+            .collect(Collectors.toSet());
+        authorDto.setBookIds(booksIds);
 
         return authorDto;
     }
@@ -62,4 +66,5 @@ public class AuthorService {
     private static NotFoundException getAuthorNotFoundException() {
         return new NotFoundException("Автор не найден");
     }
+
 }

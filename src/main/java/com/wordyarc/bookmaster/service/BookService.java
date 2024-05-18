@@ -41,7 +41,8 @@ public class BookService {
     public BookDto updateBook(Long id, CreateBookDto createBookDto) {
         var book = bookRepository.findById(id)
             .orElseThrow(BookService::getBookNotFoundException);
-        if (!book.getIsbn().equals(createBookDto.getIsbn()) && bookRepository.existsByIsbn(createBookDto.getIsbn())) {
+        if (!book.getIsbn().equals(createBookDto.getIsbn()) && bookRepository.existsByIsbn(
+            createBookDto.getIsbn())) {
             throw new BadRequestException("ISBN должен быть уникален");
         }
         mapper.map(createBookDto, book);
@@ -68,8 +69,12 @@ public class BookService {
     }
 
     private BookDto convertToDto(Book book) {
-        BookDto bookDto = mapper.map(book, BookDto.class);
-        bookDto.setAuthorIds(book.getAuthors().stream().map(Author::getId).collect(Collectors.toSet()));
+        var bookDto = mapper.map(book, BookDto.class);
+        Set<Long> authorsIds = book.getAuthors()
+            .stream()
+            .map(Author::getId)
+            .collect(Collectors.toSet());
+        bookDto.setAuthorIds(authorsIds);
 
         return bookDto;
     }
@@ -86,4 +91,5 @@ public class BookService {
     public static NotFoundException getBookNotFoundException() {
         return new NotFoundException("Книга не найдена");
     }
+
 }

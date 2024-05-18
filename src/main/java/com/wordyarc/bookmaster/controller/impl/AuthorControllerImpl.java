@@ -12,7 +12,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/book-service")
+@RequestMapping("/api/author-service")
 @RequiredArgsConstructor
 public class AuthorControllerImpl implements AuthorController {
 
@@ -32,9 +32,9 @@ public class AuthorControllerImpl implements AuthorController {
         @Valid @PathVariable Long id,
         @Valid @RequestBody CreateAuthorDto createAuthorDto
     ) {
-        var updatedAuthorDTO = authorService.updateAuthor(id, createAuthorDto);
+        var updatedAuthorDto = authorService.updateAuthor(id, createAuthorDto);
 
-        return ResponseEntity.ok(updatedAuthorDTO);
+        return ResponseEntity.ok(updatedAuthorDto);
     }
 
     @Override

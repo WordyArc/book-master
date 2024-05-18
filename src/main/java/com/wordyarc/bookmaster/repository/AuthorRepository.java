@@ -10,4 +10,5 @@ import org.springframework.stereotype.*;
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 
     List<Author> findByIdIn(Set<Long> ids);
+
 }

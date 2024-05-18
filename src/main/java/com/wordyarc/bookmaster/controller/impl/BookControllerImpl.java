@@ -12,7 +12,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/author-service")
+@RequestMapping("/api/book-service")
 @RequiredArgsConstructor
 public class BookControllerImpl implements BookController {
 
@@ -52,9 +52,9 @@ public class BookControllerImpl implements BookController {
         @RequestParam(required = false) String isbn,
         @RequestParam(required = false) String author
     ) {
-        List<BookDto> bookDTOs = bookService.getBooks(title, isbn, author);
+        List<BookDto> bookDtos = bookService.getBooks(title, isbn, author);
 
-        return ResponseEntity.ok(bookDTOs);
+        return ResponseEntity.ok(bookDtos);
     }
 
 }

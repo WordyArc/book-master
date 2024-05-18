@@ -19,10 +19,9 @@ public class CustomBookRepository {
         Root<Book> root = query.from(Book.class);
 
         List<Predicate> predicates = getPredicates(builder, root, title, isbn, author);
-        query.where(predicates.toArray(new Predicate[0]));
+        query.where(predicates.toArray(Predicate[]::new));
 
         return entityManager.createQuery(query).getResultList();
-
     }
 
     private List<Predicate> getPredicates(
@@ -35,9 +34,11 @@ public class CustomBookRepository {
         List<Predicate> predicates = new ArrayList<>();
 
         if (title != null && !title.isEmpty()) {
-            predicates.add(builder.like(
-                builder.lower(root.get("title")),
-                "%" + title.toLowerCase() + "%")
+            predicates.add(
+                builder.like(
+                    builder.lower(root.get("title")),
+                    "%" + title.toLowerCase() + "%"
+                )
             );
         }
         if (isbn != null && !isbn.isEmpty()) {
